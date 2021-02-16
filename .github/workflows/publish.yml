@@ -25,6 +25,6 @@ jobs:
     - name: Publish Synthesis GUI to Github
       uses: svenstaro/upload-release-action@v2
       with:
-        file: Synthesis.Bethesda.GUI/bin/Release/net5.0/win-x64/publish/Synthesis.zip
+        file: Synthesis.zip
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.release.tag_name }}
