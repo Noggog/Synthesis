@@ -21,7 +21,7 @@ jobs:
       run: dotnet publish "Synthesis.Bethesda.GUI/Synthesis.Bethesda.GUI.csproj" --configuration Release --no-self-contained
     - name: Archive Release
       run: |
-        powershell Compress-Archive Synthesis.Bethesda.GUI/bin/Release/net5.0/win-x64/publish/* Synthesis.zip 
+        powershell Get-ChildItem Synthesis.Bethesda.GUI/bin/Release/net5.0/win-x64/publish/* -exclude *.xml | Compress-Archive -DestinationPath Synthesis.zip 
     - name: Publish Synthesis GUI to Github
       uses: svenstaro/upload-release-action@v2
       with:
