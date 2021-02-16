@@ -18,10 +18,10 @@ jobs:
     - name: Test
       run: dotnet test --no-build -c Release    
     - name: Pack
-      run: dotnet publish "Synthesis.Bethesda.GUI/Synthesis.Bethesda.GUI.csproj" -r win-x64 -f net5.0 --configuration Release
+      run: dotnet publish "Synthesis.Bethesda.GUI/Synthesis.Bethesda.GUI.csproj" -r win-x64 -f net5.0 --configuration Release /p:PublishReadyToRun=True /p:PublishSingleFile=True
     - name: Archive Release
       run: |
-        powershell Compress-Archive Synthesis.Bethesda.GUI/bin/Release/net5.0/win-x64/publish/ Synthesis.zip 
+        powershell Compress-Archive Synthesis.Bethesda.GUI/bin/Release/net5.0/win-x64/publish/* Synthesis.zip 
     - name: Publish Synthesis GUI to Github
       uses: svenstaro/upload-release-action@v2
       with:
