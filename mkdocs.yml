@@ -76,7 +76,6 @@ nav:
     - Updating UI: Updating-UI.md
     # - Existing Saves: Existing-Saves.md
     - Starting Into a Specific Profile: Starting-Into-Profile.md
-    - FAQs and Troubleshooting: FAQ-and-Troubleshooting.md
     - Sharing Your Setup: Sharing.md
   - Patcher Types:
     - Git Repository: Git-Repository-Patcher.md
@@ -95,3 +94,6 @@ nav:
     - Supporting Multiple Games: devs/Supporting-Multiple-Games.md
     - Synthesis Collective: devs/Synthesis-Collective.md
     - Patcher CLI: devs/Patcher-CLI.md
+  - Troubleshooting:
+    - Discussions: troubleshooting/discussions.md
+    - Nuget Config: troubleshooting/nuget-config.md

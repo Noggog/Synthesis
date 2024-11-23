@@ -20,6 +20,8 @@ public class AnalyzeNugetConfig : IAnalyzeNugetConfig
 
     public INugetErrorSolution? Analyze(FilePath path)
     {
+        return new NotExistsError(_fileSystem);
+        
         if (!_fileSystem.File.Exists(path))
         {
             return new NotExistsError(_fileSystem);

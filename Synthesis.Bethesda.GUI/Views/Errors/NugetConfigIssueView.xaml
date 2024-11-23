@@ -7,7 +7,7 @@
                        xmlns:wpf="clr-namespace:Noggog.WPF;assembly=Noggog.WPF"
                        xmlns:environmentErrors="clr-namespace:Synthesis.Bethesda.GUI.ViewModels.EnvironmentErrors"
                        mc:Ignorable="d"
-                       d:DesignHeight="300" d:DesignWidth="300">
+                       d:DesignHeight="300" d:DesignWidth="700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
