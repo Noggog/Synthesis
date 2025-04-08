@@ -1,32 +1,41 @@
 using System.IO.Abstractions;
 using System.Reactive.Linq;
+using Mutagen.Bethesda;
+using Mutagen.Bethesda.Environments.DI;
+using Mutagen.Bethesda.Plugins.Order.DI;
+using Noggog;
+using NSubstitute;
 using Synthesis.Bethesda.Commands;
 using Synthesis.Bethesda.Execution.Patchers.Running;
+using Synthesis.Bethesda.Execution.Running.Runner;
+using Synthesis.Bethesda.UnitTests.Common;
 
 namespace Synthesis.Bethesda.UnitTests.Execution.Running;
 
 public class RunnerTests
 {
-    // [Fact]
-    // public async Task EmptyRun()
-    // {
-    //     var env = Utility.SetupEnvironment(GameRelease.Oblivion);
-    //     var output = Utility.TypicalOutputFile(env.BaseFolder);
-    //     var writer = Substitute.For<ILoadOrderWriter>();
-    //     await new Runner(
-    //             env.FileSystem,
-    //             new GameReleaseInjection(env.Release),
-    //             new DataDirectoryInjection(env.DataFolder),
-    //             new LoadOrderListingsInjection(env.GetTypicalLoadOrder()),
-    //             writer)
-    //         .Run(
-    //             workingDirectory: env.BaseFolder,
-    //             outputPath: output,
-    //             patchers: ListExt.Empty<IPatcherRun>(),
-    //             cancel: CancellationToken.None);
-    //     Assert.False(env.FileSystem.File.Exists(output));
-    // }
-    //
+    // Strong inject
+    
+    [Fact]
+    public async Task EmptyRun()
+    {
+        var env = Utility.SetupEnvironment(GameRelease.Oblivion);
+        var output = Utility.TypicalOutputFile(env.BaseFolder);
+        var writer = Substitute.For<ILoadOrderWriter>();
+        await new ExecuteRun(
+                env.FileSystem,
+                new GameReleaseInjection(env.Release),
+                new DataDirectoryInjection(env.DataFolder),
+                new LoadOrderListingsInjection(env.GetTypicalLoadOrder()),
+                writer)
+            .Run(
+                workingDirectory: env.BaseFolder,
+                outputPath: output,
+                patchers: [],
+                cancel: CancellationToken.None);
+        Assert.False(env.FileSystem.File.Exists(output));
+    }
+    
     // [Fact]
     // public async Task ListedNonExistantSourcePath()
     // {
