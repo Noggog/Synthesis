@@ -60,6 +60,9 @@ public class ClassificationVmFactory : IClassificationVmFactory
             DotNetSdkOutdatedErrorClassification dotNetSdkOutdatedError =>
                 scope.Resolve<DotNetSdkOutdatedErrorVm.Factory>()(dotNetSdkOutdatedError),
 
+            NugetSignatureErrorClassification nugetSignatureError =>
+                scope.Resolve<NugetSignatureErrorVm.Factory>()(nugetSignatureError),
+
             // For unrecognized error types, return the classification as-is
             _ => classification
         };

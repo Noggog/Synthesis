@@ -138,6 +138,11 @@
                             <errorViews:DotNetSdkOutdatedErrorView />
                         </DataTemplate>
 
+                        <!-- Specific view for NugetSignatureErrorVm -->
+                        <DataTemplate DataType="{x:Type errorVms:NugetSignatureErrorVm}">
+                            <errorViews:NugetSignatureErrorView />
+                        </DataTemplate>
+
                         <!-- Default view for all other error classifications -->
                         <DataTemplate DataType="{x:Type reporters:ErrorClassification}">
                             <errorViews:DefaultErrorClassificationView />

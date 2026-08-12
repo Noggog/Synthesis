@@ -16,7 +16,8 @@ public class CompilationExceptionDetector : IExceptionClassificationDetector
         {
             if (current is SynthesisBuildFailure buildFailure
                 && !CscCrashErrorClassification.IsCscCrash(buildFailure.Message)
-                && !DotNetSdkOutdatedErrorClassification.IsSdkOutdated(buildFailure.Message))
+                && !DotNetSdkOutdatedErrorClassification.IsSdkOutdated(buildFailure.Message)
+                && !NugetSignatureErrorClassification.IsSignatureFailure(buildFailure.Message))
             {
                 return new CompilationErrorClassification(buildFailure.Message);
             }
