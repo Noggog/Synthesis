@@ -35,6 +35,17 @@ public class RunVm : ViewModel
     public IRunReporter Reporter { get; }
     private readonly Dictionary<Guid, PatcherRunVm> _patchers;
 
+    // TEMP: forces every error to display the nuget signature pane.  Flip to false to restore real classification.
+    private const bool DebugForceNugetSignatureError = true;
+
+    private static Execution.Reporters.ErrorClassification? Classify(
+        Func<Execution.Reporters.ErrorClassification?> classify)
+    {
+        return DebugForceNugetSignatureError
+            ? new NugetSignatureErrorClassification(new[] { "K4os.Compression.LZ4.Streams 1.2.2-beta" })
+            : classify();
+    }
+
     public ProfileVm RunningProfile { get; }
 
     private readonly CancellationTokenSource _cancel = new();
@@ -148,7 +159,7 @@ public class RunVm : ViewModel
             .Subscribe(ex =>
             {
                 ResultError = ex;
-                var classification = _errorClassifier.Classify(ex);
+                var classification = Classify(() => _errorClassifier.Classify(ex));
                 if (classification != null)
                 {
                     ResultErrorClassification = _classificationVmFactory.CreateVm(
@@ -187,10 +198,11 @@ public class RunVm : ViewModel
                     vm.State = GetResponse<RunState>.Fail(RunState.Error, i.data.Error);
                 }
                 // Set the error classification if present, wrapping it with a VM if needed
-                if (i.data.Classification != null)
+                var classification = Classify(() => i.data.Classification);
+                if (classification != null)
                 {
                     vm.ErrorClassification = _classificationVmFactory.CreateVm(
-                        i.data.Classification,
+                        classification,
                         _scope,
                         vm.PatcherSourceVm);
                 }
